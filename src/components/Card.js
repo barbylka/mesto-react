@@ -1,13 +1,36 @@
 import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick }) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = `places__delete ${
+    !isOwn && "places__delete_hidden"
+  }`;
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `places__like ${
+    isLiked && "places__like_active"
+  }`;
+
   function handleClick() {
     onCardClick(card);
   }
 
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="places__item">
-      <button className="places__delete" type="button"></button>
+      <button
+        className={cardDeleteButtonClassName}
+        onClick={handleDeleteClick}
+        type="button"
+      ></button>
       <img
         className="places__img"
         alt="фото, которое загрузил пользователь"
@@ -17,7 +40,11 @@ function Card({ card, onCardClick }) {
       <div className="places__description">
         <h2 className="places__title">{card.name}</h2>
         <div className="places__likes">
-          <button className="places__like" type="button"></button>
+          <button
+            className={cardLikeButtonClassName}
+            onClick={handleLikeClick}
+            type="button"
+          ></button>
           <span className="places__like-number">{card.likes.length}</span>
         </div>
       </div>
