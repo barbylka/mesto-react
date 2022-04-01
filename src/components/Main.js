@@ -1,33 +1,17 @@
 import React from "react";
-import api from "../utils/api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((data) => {
-        setUserName(data.name);
-        setUserDescription(data.about);
-        setUserAvatar(data.avatar);
-      })
-      .catch((err) => {
-        console.log(`Данные не загрузились: ${err}`);
-      });
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        console.log(`Карточки не загрузились: ${err}`);
-      });
-  }, []);
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  cards,
+  onCardLike,
+  onCardDelete,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main>
@@ -35,12 +19,14 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <div
           className="profile__image"
           onClick={onEditAvatar}
-          style={{ backgroundImage: `url(${userAvatar})` }}
+          style={{ backgroundImage: `url(${currentUser.avatar})` }}
         ></div>
         <div className="profile__container">
           <div className="profile__cont-info">
-            <h1 className="profile__cont-info-name">{userName}</h1>
-            <p className="profile__cont-info-description">{userDescription}</p>
+            <h1 className="profile__cont-info-name">{currentUser.name}</h1>
+            <p className="profile__cont-info-description">
+              {currentUser.about}
+            </p>
           </div>
           <button
             className="profile__button profile__button_type_edit"
@@ -59,7 +45,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <ul className="places__items">
           {cards.map((card) => {
             return (
-              <Card card={card} key={card._id} onCardClick={onCardClick} />
+              <Card
+                card={card}
+                key={card._id}
+                onCardClick={onCardClick}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
+              />
             );
           })}
         </ul>
