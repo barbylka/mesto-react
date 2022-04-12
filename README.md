@@ -30,9 +30,15 @@ On this site the user can:
 }
 ```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**GitHub Pages Link**
+
+The project is published [here](https://barbylka.github.io/mesto-react/)
+
+This project is created for a fornt-end training course, thus, any comments on refinement and optimization are welcome!
 
 ### Available Scripts
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
 
