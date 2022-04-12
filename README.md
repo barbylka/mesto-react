@@ -2,7 +2,34 @@
 
 This is a gallery of thousands of picturesque areas our planet has. So, this is an example of photo desk realization, where users can sign in, upload the photo, delete his ones, like or dislike them. And all of them is with server connection.
 
+## Functions
+
+On this site the user can:
+
+* like the places' cards;
+* change the text in the profile lines "name" and "about yourself" or the photo;
+* add and delete cards to the project;
+* interact with the form without a mouse - a keyboard is enough;
+* open any existing or added card for viewing on the full screen.
+
 ## Technology Stack
+
+1. React hooks, functional components. Implementation of popups, cards rendering and the Context of the one user are done via ` React.useState ` ` React.useRef ` ` React.useEffect ` and one HOC (higher-order component) via ` React.memo `
+
+2. The Fetch API provides each user's action: 
+
+    * update profile data, 
+    * add cards and delete the only users' ones,
+    * like / dislike photos.
+  Thanks to the study platform server. 
+  
+3. The project is responsive for different screen resolutions due to grids and flexboxes. Also the technology used:
+```
+@media screen and (max-width: XXXpx) {
+  /* some props */
+}
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Available Scripts
