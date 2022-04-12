@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./Header";
 import Main from "./Main";
-import PopupWithForm from "./PopupWithForm";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import DeleteCardPopup from "./DeleteCardPopup";
@@ -33,9 +32,7 @@ function App() {
       .catch((err) => {
         console.log(`Данные пользователя не загрузились: ${err}`);
       });
-  }, []);
 
-  React.useEffect(() => {
     api
       .getInitialCards()
       .then((data) => {
@@ -65,7 +62,6 @@ function App() {
   function handleDeleteCardPopup(card) {
     setIsDeleteCardPopupOpen(true);
     setPlannedToDeleteCard(card);
-    console.log(isDeleteCardPopupOpen);
   }
 
   function closeAllPopups() {
@@ -75,7 +71,6 @@ function App() {
     setIsDeleteCardPopupOpen(false);
     setSelectedCard({});
     setPlannedToDeleteCard({});
-    console.log(isDeleteCardPopupOpen);
   }
 
   function handleUpdateUser(onUpdateUser) {

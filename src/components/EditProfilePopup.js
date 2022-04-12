@@ -16,9 +16,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   React.useEffect(() => {
-    setName(currentUser.name || "");
-    setDescription(currentUser.about || "");
-  }, [currentUser]);
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -29,19 +29,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     });
   }
 
-  function handleClose() {
-    setName(currentUser.name || "");
-    setDescription(currentUser.about || "");
-
-    onClose();
-  }
-
   return (
     <PopupWithForm
       name="edit"
       title="Редактировать профиль"
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
       <fieldset className="popup__inputs">
@@ -51,7 +44,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             id="name-input"
             required
             placeholder="Имя"
-            value={name}
+            value={name || ""}
             onChange={handleChangeName}
             className="popup__text popup__text_type_name"
             name="name"
@@ -66,7 +59,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
             id="desc-input"
             required
             placeholder="О себе"
-            value={description}
+            value={description || ""}
             onChange={handleChangeDescription}
             className="popup__text popup__text_type_description"
             name="about"
